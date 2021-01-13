@@ -4,6 +4,10 @@ public class Rating {
     private String movieId;
     private double rating;
 
+    public Rating() {
+        //no args constructor for unmarshalling this
+    }
+
     public Rating(String movieId, double rating) {
         this.movieId = movieId;
         this.rating = rating;

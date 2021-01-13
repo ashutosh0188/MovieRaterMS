@@ -3,6 +3,7 @@ package movierater.moviecatalogservices.controller;
 import movierater.moviecatalogservices.model.CatalogItem;
 import movierater.moviecatalogservices.model.Movie;
 import movierater.moviecatalogservices.model.Rating;
+import movierater.moviecatalogservices.model.UserRating;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -24,8 +25,8 @@ public class MovieCatalogController {
 
     @GetMapping("/items/{userId}")
     public List<CatalogItem> catalogItem(@PathVariable String userId) {
-            List<Rating> ratings = Arrays.asList(new Rating("1234", 4.0), new Rating("5467", 3.0));
-        List<CatalogItem> res = ratings.stream().map(r-> {
+        UserRating userRating = restTemplate.getForObject("http://localhost:8083/rating/user/"+userId, UserRating.class);
+        List<CatalogItem> res = userRating.getRatings().stream().map(r-> {
             Movie movie = restTemplate.getForObject("http://localhost:8082/movie/"+r.getMovieId(), Movie.class);
             return new CatalogItem(movie.getName(), "An iternal love story", r.getRating());
         }).collect(Collectors.toList());
