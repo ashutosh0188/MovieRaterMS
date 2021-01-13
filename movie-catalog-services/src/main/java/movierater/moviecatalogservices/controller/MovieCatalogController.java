@@ -24,7 +24,7 @@ public class MovieCatalogController {
 
     @GetMapping("/items/{userId}")
     public List<CatalogItem> catalogItem(@PathVariable String userId) {
-        List<Rating> ratings = Arrays.asList(new Rating("1234", 4.0), new Rating("5467", 3.0));
+            List<Rating> ratings = Arrays.asList(new Rating("1234", 4.0), new Rating("5467", 3.0));
         List<CatalogItem> res = ratings.stream().map(r-> {
             Movie movie = restTemplate.getForObject("http://localhost:8082/movie/"+r.getMovieId(), Movie.class);
             return new CatalogItem(movie.getName(), "An iternal love story", r.getRating());
