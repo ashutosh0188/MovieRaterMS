@@ -21,7 +21,7 @@ public class RatingDataService {
         return userRating;
     }
 
-    private UserRating ratingFromCache(String userId) {
+    public UserRating ratingFromCache(String userId) {
         UserRating userRating = new UserRating();
         userRating.setRatings(Arrays.asList(new Rating("",0.0)));
         return userRating;
